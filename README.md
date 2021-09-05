@@ -15,7 +15,7 @@ El programa recibe los parámetros por línea de comando, graficando el resultad
 ## Parámetros
 `-N <float>: cantidad de intervalos entre t0 y tf. Excluyente con -H`
 
-`-H <float>: tamaño del incremento para las aproximaciones, tal que t1 = t0 + H. Excluchente con -N`
+`-H <float>: tamaño del incremento para las aproximaciones, tal que t1 = t0 + H. Excluyente con -N`
 
 `--equation "<equation>": ecuacion diferencial a aproximar. Debe ser tener una sintaxis válida de Python3`
 
