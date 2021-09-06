@@ -67,7 +67,8 @@ def main():
         x_val = [x[0] for x in x_euler]
         y_val = [x[1] for x in x_euler]
 
-        plt.title('Aproximacion por metodo de Euler a la ED f(x,t) = {0}'.format(eq))
+
+        plt.title('Aproximacion por metodo de Euler a la ED f(x,t) = {0}\ncon h = {1}, x0 = {2}, t0 = {3}, tf = {4}'.format(eq, h_value, x0, t0, tf))
         plt.xlabel('t')
         plt.ylabel('x')
         plt.plot(x_val, y_val)
