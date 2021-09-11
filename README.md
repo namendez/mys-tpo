@@ -1,7 +1,7 @@
 # TPO Modelado y Simulación 
 ## Alumnos:
-- Méndez Nicolás - LU 1038296
-- Suarez Leandro - LU 1080560
+- Méndez Nicolás 
+- Suarez Leandro
 
 Aproximación a una ecuación diferencial de primer orden mediante la implementación del algoritmo de Euler.
 
