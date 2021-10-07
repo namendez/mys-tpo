@@ -1,6 +1,8 @@
 import argparse
 from math import * #importo funciones (sqrt, sin, cos, etc)
 import matplotlib.pyplot as plt
+import numpy as np
+from scipy.integrate import odeint
 
 
 def euler(eq, t0, tf, x0, h):
@@ -11,13 +13,15 @@ def euler(eq, t0, tf, x0, h):
     x_euler = [(t0, x0)]
     t = t0 # t arranca en t0
     i = 0
-
+    
+    print('X_Euler: (X, t)')
     # calculo todos los x0 entre t0 y tf, con incrementos h. los guardo como tuplas (t, x0) en el array x_euler
     while True:
         x0_tmp = x_euler[i][1] # obtengo el x0 para calcular x1 como x1 = x0 + h * (f(t, x))
+        x = x0_tmp
         t += h
         i += 1
-
+        print("X_Euler: {}".format(x_euler[i-1]) )
         # si t += h > t salgo del loop (termine de aproximar)
         if (t > tf):
             break
@@ -26,6 +30,15 @@ def euler(eq, t0, tf, x0, h):
         x_euler.append((t, x1))
 
     return x_euler
+
+
+# Solución analítica 
+# devuelve funcion necesaria para odeint
+def model(eq):
+    def model_tmp(x, t):
+        return eval(eq)
+    return model_tmp
+
 
 def main():
     parser = argparse.ArgumentParser(description="Calcula la aproximación de Euler dado una ED de primer orden.")
@@ -67,16 +80,22 @@ def main():
         x_val = [x[0] for x in x_euler]
         y_val = [x[1] for x in x_euler]
 
+        # Solución numérica con scipy
+        t = np.linspace(t0, tf)
+        x_numeric = odeint(model(eq),x0, t)
 
         plt.title('Aproximacion por metodo de Euler a la ED f(x,t) = {0}\ncon h = {1}, x0 = {2}, t0 = {3}, tf = {4}'.format(eq, h_value, x0, t0, tf))
         plt.xlabel('t')
-        plt.ylabel('x')
-        plt.plot(x_val, y_val)
+        plt.ylabel('x(t)')
+        plt.plot(t, x_numeric, 'b')
+        plt.plot(x_val, y_val, 'k')
         plt.plot(x_val, y_val,'or')
+        plt.legend(['Solución numérica', 'Aproximación por Euler'])
         plt.show()
 
-    except (SyntaxError, NameError):
+    except (SyntaxError, NameError) as e:
         print('Ecuación inválida, por favor verifique.')
+        print(e)
 
 
 
